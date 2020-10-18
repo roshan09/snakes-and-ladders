@@ -36,7 +36,7 @@ internal class BoardTest {
 
     @Test
     internal fun `should return true if player is at last square`() {
-        val player = Player(1, NormalSquare(9))
+        val player = Player(1, NormalSquare(10))
         val result = board.playerReachedEnd(player)
         result shouldBe true
     }

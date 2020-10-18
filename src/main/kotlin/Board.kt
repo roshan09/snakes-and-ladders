@@ -6,7 +6,7 @@ class Board {
 
     constructor(size: Int, redirectionConfigs: List<RedirectingSquareConfig>) {
         this.size = size
-        this.squares = Array(size) { NormalSquare(it) }
+        this.squares = Array(size + 1) { NormalSquare(it) }
         redirectionConfigs.forEach { this.squares[it.id] = RedirectingSquare(it.id, squares[it.destId]) }
     }
 
@@ -14,7 +14,7 @@ class Board {
 
     fun findNextPosition(currPosition: Square, number: Int): Square {
         val nextNumber = currPosition.id + number
-        if (nextNumber >= size)
+        if (nextNumber > size)
             return currPosition
         val nextPosition = squares[nextNumber]
         if (nextPosition is RedirectingSquare) {
@@ -26,7 +26,7 @@ class Board {
 
     fun playerReachedEnd(player: Player): Boolean {
         val currPos = player.findCurrPosition()
-        return currPos.id == size - 1
+        return currPos.id == size
     }
 
     fun findFirstSquare(): Square {
