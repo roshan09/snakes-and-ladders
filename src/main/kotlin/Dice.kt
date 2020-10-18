@@ -28,6 +28,11 @@ class CrookedDice(size: Int, random: RandomIndexGenerator) : Dice(random) {
     override val possibilities: Array<Int> = (1..size).filter { it.isEven() }.toTypedArray()
 }
 
+enum class DiceType {
+    NORMAL,
+    CROOKED
+}
+
 fun Int.isEven(): Boolean {
     return this % 2 == 0
 }
