@@ -1,13 +1,6 @@
 import java.util.logging.Logger
 
-class Player {
-    val id: Int
-    private var currPosition: Square
-
-    constructor(id: Int, initialPosition: Square) {
-        this.id = id
-        this.currPosition = initialPosition
-    }
+class Player(val id: Int, private var currPosition: Square) {
 
     private val logger = Logger.getLogger(javaClass.name)
 
