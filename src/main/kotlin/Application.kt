@@ -4,5 +4,6 @@ fun main() {
     val player1 = Player(1, board.findFirstSquare())
     val player2 = Player(2, board.findFirstSquare())
     val game = Game(arrayOf(player1, player2), board, dice)
-    game.start()
+    val result = game.start()
+    println("winner is "+result.player.id)
 }

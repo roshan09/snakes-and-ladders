@@ -13,7 +13,7 @@ class Game {
 
     private val logger = Logger.getLogger(javaClass.name)
 
-    fun start() {
+    fun start(): Result {
         var currPlayerIndex = 0
 
         while (true) {
@@ -22,9 +22,11 @@ class Game {
             currPlayer.play(dice, board)
             if (board.playerReachedEnd(currPlayer)) {
                 logger.info("Player Id "+ currPlayer.id + " reached final square")
-                break
+                return Result(currPlayer)
             }
             currPlayerIndex = (currPlayerIndex + 1) % players.size
         }
     }
 }
+
+data class Result(val player: Player)
