@@ -1,6 +1,7 @@
+import java.util.*
 
 class Dice {
     fun roll() : Int {
-        return 0;
+        return (1..6).random();
     }
 }
