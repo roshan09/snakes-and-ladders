@@ -5,10 +5,12 @@ import org.junit.jupiter.api.Test
 internal class BoardTest {
 
     lateinit var board: Board
+    lateinit var redirectionConfigs: List<RedirectingSquareConfig>
 
     @BeforeEach
     fun setUp() {
-        board = Board(10)
+        redirectionConfigs = listOf(RedirectingSquareConfig(5, 1))
+        board = Board(10, redirectionConfigs)
     }
 
     @Test
@@ -23,6 +25,13 @@ internal class BoardTest {
         val currPosition = NormalSquare(7)
         val result = board.findNextPosition(currPosition, 5)
         result shouldBe currPosition
+    }
+
+    @Test
+    internal fun `should redirect to dest if player lands on redirecting square`() {
+        val currPosition = NormalSquare(3)
+        val result = board.findNextPosition(currPosition, 2)
+        result.id shouldBe 1
     }
 
     @Test

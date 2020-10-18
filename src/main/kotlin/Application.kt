@@ -1,5 +1,5 @@
 fun main() {
-    val board = Board(10)
+    val board = Board(10, listOf(RedirectingSquareConfig(5, 2), RedirectingSquareConfig(7, 3)))
     val dice = Dice()
     val player1 = Player(1, board.findFirstSquare())
     val player2 = Player(2, board.findFirstSquare())
