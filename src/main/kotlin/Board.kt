@@ -7,7 +7,9 @@ class Board {
     constructor(size: Int, redirectionConfigs: List<RedirectingSquareConfig>) {
         this.size = size
         this.squares = Array(size + 1) { NormalSquare(it) }
-        redirectionConfigs.forEach { this.squares[it.id] = RedirectingSquare(it.id, squares[it.destId]) }
+        redirectionConfigs.filter { it.isValid() }.forEach {
+            this.squares[it.id] = RedirectingSquare(it.id, squares[it.destId], it.type)
+        }
     }
 
     private val logger = Logger.getLogger(javaClass.name)
@@ -19,7 +21,8 @@ class Board {
         val nextPosition = squares[nextNumber]
         logger.info("Next position is ${nextPosition.id}")
         if (nextPosition is RedirectingSquare) {
-            logger.info("Landed on redirecting square with id : ${nextPosition.id}, now going to ${nextPosition.destination.id}")
+            val nextId = nextPosition.destination.id
+            logger.info("Landed on redirecting square of type ${nextPosition.type} going from ${nextPosition.id} to $nextId")
             return nextPosition.destination
         }
         return nextPosition

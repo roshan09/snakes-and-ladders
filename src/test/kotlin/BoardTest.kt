@@ -1,3 +1,4 @@
+import RedirectingEntity.SNAKE
 import io.kotlintest.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -9,7 +10,7 @@ internal class BoardTest {
 
     @BeforeEach
     fun setUp() {
-        redirectionConfigs = listOf(RedirectingSquareConfig(5, 1))
+        redirectionConfigs = listOf(RedirectingSquareConfig(5, 1, SNAKE))
         board = Board(10, redirectionConfigs)
     }
 
