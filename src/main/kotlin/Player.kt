@@ -6,8 +6,9 @@ class Player(val id: Int, private var currPosition: Square) {
 
     fun play(dice: Dice, board: Board) {
         val num = dice.roll()
+        logger.info("Dice Number : $num");
         val nextPosition = board.findNextPosition(currPosition, num)
-        logger.info("Dice Number : $num, moving from.. ${currPosition.id} to ${nextPosition.id}");
+        logger.info("Moving to : ${nextPosition.id}");
         currPosition = nextPosition
     }
 

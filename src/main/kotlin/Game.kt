@@ -1,11 +1,15 @@
+import GameResult.DRAW
+import GameResult.WINNER
 import java.util.logging.Logger
 
 class Game {
     private val players: Array<Player>
     private val board: Board
     private val dice: Dice
+    private val limitOfTurns: Int
 
-    constructor(players: Array<Player>, board: Board, dice: Dice) {
+    constructor(limitOfTurns: Int, players: Array<Player>, board: Board, dice: Dice) {
+        this.limitOfTurns = limitOfTurns
         this.players = players
         this.board = board
         this.dice = dice
@@ -14,19 +18,30 @@ class Game {
     private val logger = Logger.getLogger(javaClass.name)
 
     fun start(): Result {
-        var currPlayerIndex = 0
 
-        while (true) {
+        var currPlayerIndex = 0
+        var iteration = 0;
+
+        while (iteration < limitOfTurns) {
+
+            if (currPlayerIndex == 0) iteration++
+
             val currPlayer = players[currPlayerIndex]
-            logger.info("Playing.. " + currPlayer.id)
+            logger.info("Playing.. Player : " + currPlayer.id)
             currPlayer.play(dice, board)
             if (board.playerReachedEnd(currPlayer)) {
-                logger.info("Player Id "+ currPlayer.id + " reached final square")
-                return Result(currPlayer)
+                logger.info("Player Id " + currPlayer.id + " reached final square")
+                return Result(WINNER, currPlayer)
             }
             currPlayerIndex = (currPlayerIndex + 1) % players.size
         }
+        return Result(DRAW)
     }
 }
 
-data class Result(val player: Player)
+data class Result(val status: GameResult, val player: Player? = null)
+
+enum class GameResult {
+    WINNER,
+    DRAW
+}

@@ -17,6 +17,7 @@ class Board {
         if (nextNumber > size)
             return currPosition
         val nextPosition = squares[nextNumber]
+        logger.info("Next position is ${nextPosition.id}")
         if (nextPosition is RedirectingSquare) {
             logger.info("Landed on redirecting square with id : ${nextPosition.id}, now going to ${nextPosition.destination.id}")
             return nextPosition.destination
