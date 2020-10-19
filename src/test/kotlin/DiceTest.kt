@@ -1,10 +1,9 @@
-import io.kotlintest.matchers.numerics.shouldBeLessThan
 import io.kotlintest.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
 
-internal class NormalDiceTest {
+internal class DiceTest {
 
     @Test
     internal fun `should return random number lte size`() {
