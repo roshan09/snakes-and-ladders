@@ -24,16 +24,17 @@ class Game {
 
         while (iteration < limitOfTurns) {
 
-            if (currPlayerIndex == 0) iteration++
-
             val currPlayer = players[currPlayerIndex]
             logger.info("Playing.. Player : " + currPlayer.id)
             currPlayer.play(dice, board)
             if (board.playerReachedEnd(currPlayer)) {
-                logger.info("Player Id " + currPlayer.id + " reached final square")
+                logger.info("Player Id "    + currPlayer.id + " reached final square")
                 return Result(WINNER, currPlayer)
             }
+
+            if (currPlayerIndex == players.lastIndex) iteration++
             currPlayerIndex = (currPlayerIndex + 1) % players.size
+
         }
         return Result(DRAW)
     }

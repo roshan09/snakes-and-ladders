@@ -7,7 +7,7 @@ internal class RedirectingSquareConfigTest{
 
     @Test
     internal fun `should validate the redirecting square`() {
-        val type = mockk<RedirectingEntity>(){
+        val type = mockk<RedirectingEntityType>(){
             every { isValid(0, 4) } returnsMany listOf(false, true)
         }
         RedirectingSquareConfig(0, 4, type).isValid() shouldBe false

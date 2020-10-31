@@ -15,14 +15,14 @@ internal class PlayerTest {
     internal fun setUp() {
         dice = mockk()
         board = mockk()
-        initialPosition = NormalSquare(1)
+        initialPosition = Square(1)
         player = Player(1, initialPosition)
     }
 
     @Test
     internal fun `player should play and update current position`() {
         every { dice.roll() } returns 4
-        val nextPosition = NormalSquare(5)
+        val nextPosition = Square(5)
         every { board.findNextPosition(initialPosition, 4) } returns nextPosition
         player.play(dice, board)
 
