@@ -22,7 +22,7 @@ class Board {
             return currPosition
         val nextPosition = squares[nextNumber]
         logger.info("Next position is ${nextPosition.id}")
-        return nextPosition.findDestination()
+        return nextPosition.findDestinationIfRedirectionExist()
     }
 
     fun playerReachedEnd(player: Player): Boolean {

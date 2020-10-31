@@ -9,12 +9,12 @@ internal class SquareTest{
         val start = mockk<Square>()
         val end = mockk<Square>()
         val square = Square(1, Snake(start, end))
-        square.findDestination() shouldBe end
+        square.findDestinationIfRedirectionExist() shouldBe end
     }
 
     @Test
     internal fun `should return same square as final destination if redirecting entity is not present`() {
         val square = Square(1)
-        square.findDestination() shouldBe square
+        square.findDestinationIfRedirectionExist() shouldBe square
     }
 }
