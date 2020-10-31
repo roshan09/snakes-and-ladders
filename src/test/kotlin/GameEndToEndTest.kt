@@ -30,6 +30,7 @@ internal class GameEndToEndTest {
         val game = Game(3, players, board, dice)
         val result = game.start()
         result.status shouldBe DRAW
+        result.player shouldBe null
 
         firstPlayer.findCurrPosition().id shouldBe 3
         secondPlayer.findCurrPosition().id shouldBe 10
@@ -58,6 +59,7 @@ internal class GameEndToEndTest {
         val game = Game(4, players, board, dice)
         val result = game.start()
         result.status shouldBe WINNER
+        result.player shouldBe thirdPlayer
 
         firstPlayer.findCurrPosition().id shouldBe 10
         secondPlayer.findCurrPosition().id shouldBe 8
