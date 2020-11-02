@@ -36,3 +36,14 @@ enum class DiceType {
 fun Int.isEven(): Boolean {
     return this % 2 == 0
 }
+
+fun Int.isPrime() : Boolean {
+    var i = 2;
+    while (i * i <= this) {
+        if (this % i == 0){
+            return false
+        }
+        i++;
+    }
+    return true
+}

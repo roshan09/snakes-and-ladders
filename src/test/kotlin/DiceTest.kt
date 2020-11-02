@@ -27,10 +27,4 @@ internal class DiceTest {
         normalDice.roll() shouldBe 4
         normalDice.roll() shouldBe 6
     }
-
-    @Test
-    internal fun `should return true of num is even`() {
-        2.isEven() shouldBe true
-        1.isEven() shouldBe false
-    }
 }

@@ -30,7 +30,7 @@ class Board {
         return currPos.id == size
     }
 
-    fun findFirstSquare(): Square {
+    fun findInitialPosition(): Square {
         return squares.first()
     }
 

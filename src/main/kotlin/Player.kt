@@ -4,12 +4,13 @@ class Player(val id: Int, private var currPosition: Square) {
 
     private val logger = Logger.getLogger(javaClass.name)
 
-    fun play(dice: Dice, board: Board) {
+    fun play(dice: Dice, board: Board): Square {
         val num = dice.roll()
         logger.info("Dice Number : $num");
         val nextPosition = board.findNextPosition(currPosition, num)
         logger.info("Moving to : ${nextPosition.id}");
         currPosition = nextPosition
+        return nextPosition
     }
 
     fun findCurrPosition(): Square {

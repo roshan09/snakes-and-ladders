@@ -1,6 +1,5 @@
 import RedirectingEntityType.SNAKE
 import io.kotlintest.shouldBe
-import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -52,7 +51,7 @@ internal class BoardTest {
 
     @Test
     internal fun `should return first square`() {
-        val result = board.findFirstSquare()
+        val result = board.findInitialPosition()
         result.id shouldBe 0
     }
 

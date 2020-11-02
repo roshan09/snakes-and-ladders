@@ -6,18 +6,19 @@ class Game {
     private val players: Array<Player>
     private val board: Board
     private val dice: Dice
-    private val limitOfTurns: Int
+    private val rules: List<Rule>
 
-    constructor(limitOfTurns: Int, players: Array<Player>, board: Board, dice: Dice) {
-        this.limitOfTurns = limitOfTurns
+    constructor(players: Array<Player>, board: Board, dice: Dice, rules: List<Rule>) {
         this.players = players
         this.board = board
         this.dice = dice
+        this.rules = rules
     }
 
     private val logger = Logger.getLogger(javaClass.name)
+    private val numberOfTurnsToSkipMap = mutableMapOf<Player, Int>()
 
-    fun start(): Result {
+    fun start(limitOfTurns : Int): Result {
 
         var currPlayerIndex = 0
         var iteration = 0;
@@ -25,18 +26,34 @@ class Game {
         while (iteration < limitOfTurns) {
 
             val currPlayer = players[currPlayerIndex]
-            logger.info("Playing.. Player : " + currPlayer.id)
-            currPlayer.play(dice, board)
-            if (board.playerReachedEnd(currPlayer)) {
-                logger.info("Player Id "    + currPlayer.id + " reached final square")
-                return Result(WINNER, currPlayer)
-            }
+            val turnsToSkipForCurrPlayer = numberOfTurnsToSkipMap[currPlayer] ?: 0
+            if (turnsToSkipForCurrPlayer == 0) {
+                logger.info("Playing.. Player : " + currPlayer.id)
+                val position = currPlayer.play(dice, board)
+                if (checkForWinner(currPlayer))
+                    return Result(WINNER, currPlayer)
+                checkForRules(position, currPlayer)
+            } else
+                numberOfTurnsToSkipMap[currPlayer] = numberOfTurnsToSkipMap[currPlayer]!! - 1;
 
             if (currPlayerIndex == players.lastIndex) iteration++
             currPlayerIndex = (currPlayerIndex + 1) % players.size
 
         }
         return Result(DRAW)
+    }
+
+    private fun checkForWinner(currPlayer: Player): Boolean {
+        if (board.playerReachedEnd(currPlayer)) {
+            logger.info("Player Id " + currPlayer.id + " reached final square")
+            return true
+        }
+        return false
+    }
+
+    private fun checkForRules(position: Square, currPlayer: Player) {
+        val numberOfTurnsToSkip = rules.map { it.findNumberOfTurnsToSkip(position) }.firstOrNull { it > 0 } ?: 0
+        numberOfTurnsToSkipMap[currPlayer] = numberOfTurnsToSkip
     }
 }
 
