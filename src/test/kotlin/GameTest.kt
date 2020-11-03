@@ -1,4 +1,4 @@
-import GameResult.DRAW
+import GameStatus.DRAW
 import io.kotlintest.shouldBe
 import io.mockk.every
 import io.mockk.mockk
@@ -28,7 +28,7 @@ internal class GameTest {
 
         val result = game.start(10)
 
-        result shouldBe Result(GameResult.WINNER, secondPlayer)
+        result shouldBe GameResult(GameStatus.WINNER, secondPlayer)
     }
 
     @Test
@@ -66,7 +66,7 @@ internal class GameTest {
         verify(exactly = 2) { rule.findNumberOfTurnsToSkip(nonPrimeSquare1) }
         verify(exactly = 1) { rule.findNumberOfTurnsToSkip(nonPrimeSquare2) }
         verify(exactly = 1) { rule.findNumberOfTurnsToSkip(nonPrimeSquare3) }
-        result shouldBe Result(DRAW)
+        result shouldBe GameResult(DRAW)
     }
 
     @Test
@@ -91,7 +91,7 @@ internal class GameTest {
 
         val result = game.start(4)
 
-        result shouldBe Result(DRAW)
+        result shouldBe GameResult(DRAW)
     }
 
 

@@ -1,5 +1,5 @@
-import GameResult.DRAW
-import GameResult.WINNER
+import GameStatus.DRAW
+import GameStatus.WINNER
 import java.util.logging.Logger
 
 class Game {
@@ -18,7 +18,7 @@ class Game {
     private val logger = Logger.getLogger(javaClass.name)
     private val numberOfTurnsToSkipMap = mutableMapOf<Player, Int>()
 
-    fun start(limitOfTurns : Int): Result {
+    fun start(limitOfTurns : Int): GameResult {
 
         var currPlayerIndex = 0
         var iteration = 0;
@@ -31,7 +31,7 @@ class Game {
                 logger.info("Playing.. Player : " + currPlayer.id)
                 val position = currPlayer.play(dice, board)
                 if (checkForWinner(currPlayer))
-                    return Result(WINNER, currPlayer)
+                    return GameResult(WINNER, currPlayer)
                 checkForRules(position, currPlayer)
             } else
                 numberOfTurnsToSkipMap[currPlayer] = numberOfTurnsToSkipMap[currPlayer]!! - 1;
@@ -40,7 +40,7 @@ class Game {
             currPlayerIndex = (currPlayerIndex + 1) % players.size
 
         }
-        return Result(DRAW)
+        return GameResult(DRAW)
     }
 
     private fun checkForWinner(currPlayer: Player): Boolean {
@@ -54,12 +54,13 @@ class Game {
     private fun checkForRules(position: Square, currPlayer: Player) {
         val numberOfTurnsToSkip = rules.map { it.findNumberOfTurnsToSkip(position) }.firstOrNull { it > 0 } ?: 0
         numberOfTurnsToSkipMap[currPlayer] = numberOfTurnsToSkip
+        logger.info("Skipping $numberOfTurnsToSkip for ${currPlayer.id}")
     }
 }
 
-data class Result(val status: GameResult, val player: Player? = null)
+data class GameResult(val status: GameStatus, val player: Player? = null)
 
-enum class GameResult {
+enum class GameStatus {
     WINNER,
     DRAW
 }

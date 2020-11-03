@@ -9,7 +9,7 @@ fun main() {
     val player1 = Player(1, board.findInitialPosition())
     val game = Game(arrayOf(player1), board, dice, listOf(PrimeNumberSquareRule(1)))
     val result = game.start(10)
-    if(result.status == GameResult.WINNER)
+    if(result.status == GameStatus.WINNER)
         println("winner is "+result.player!!.id)
     else
         println("Game is draw")

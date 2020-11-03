@@ -1,5 +1,5 @@
-import GameResult.DRAW
-import GameResult.WINNER
+import GameStatus.DRAW
+import GameStatus.WINNER
 import RedirectingEntityType.*
 import io.kotlintest.shouldBe
 import io.mockk.every
