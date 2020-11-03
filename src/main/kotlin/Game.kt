@@ -32,7 +32,7 @@ class Game {
                 val position = currPlayer.play(dice, board)
                 if (checkForWinner(currPlayer))
                     return GameResult(WINNER, currPlayer)
-                checkForRules(position, currPlayer)
+                checkForRulesAndUpdateState(position, currPlayer)
             } else
                 numberOfTurnsToSkipMap[currPlayer] = numberOfTurnsToSkipMap[currPlayer]!! - 1;
 
@@ -51,7 +51,7 @@ class Game {
         return false
     }
 
-    private fun checkForRules(position: Square, currPlayer: Player) {
+    private fun checkForRulesAndUpdateState(position: Square, currPlayer: Player) {
         val numberOfTurnsToSkip = rules.map { it.findNumberOfTurnsToSkip(position) }.firstOrNull { it > 0 } ?: 0
         numberOfTurnsToSkipMap[currPlayer] = numberOfTurnsToSkip
         logger.info("Skipping $numberOfTurnsToSkip for ${currPlayer.id}")
